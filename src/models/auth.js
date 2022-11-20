@@ -21,8 +21,8 @@ const AuthSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
-AuthSchema.pre("prev  save", function (next) {
-  comparePassword(this.password);
+AuthSchema.pre("save", function (next) {
+  this.password = this.comparePassword(this.password);
   next();
 });
 AuthSchema.methods = {

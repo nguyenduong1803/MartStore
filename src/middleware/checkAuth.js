@@ -1,18 +1,19 @@
 import jwt from "jsonwebtoken";
-import AuthSchema from "../models/auth";
+import UserSchema from "../models/user";
 const checkAuth = async (req, res, next) => {
   try {
-    const { username, password } = req.body;
-    const user = await AuthSchema.findOne({ username, password });
-    if (!user) {
-      res
-        .status(400)
-        .json({ message: "username or password not found", user });
-      return;
+    const { email, password } = req.body;
+    const existUser = await UserSchema.findOne({ email });
+    if (!existUser) {
+      return res.status(400).json({ message: "Email not found", user });
+    }
+    console.log(existUser.authenticate(password))
+    if (!existUser.authenticate(password)) {
+      return res.status(400).json({ message: "wrong password", user });
     }
     const token = await jwt.sign(
-      { username: user.username, password: user.password },
-      "keyyy"
+      { email: existUser.email, password: existUser.password },
+      process.env.SECRETKEY
     );
     res.status(200).json({ message: "Login success", token });
   } catch (error) {
