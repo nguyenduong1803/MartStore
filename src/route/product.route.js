@@ -16,7 +16,7 @@ router.post("/product/add", add);
 router.get("/product/:id", getProductById);
 router.put("/product/update/:id", update);
 router.delete("/product/:id", remove);
-router.post("/product/upload", uploadCloudinary);
+router.post("/product/upload",uploadCloud.single("files"), uploadCloudinary);
 router.get("/", getAll);
 
 export default router;

@@ -28,9 +28,9 @@ const options = {
   apis: ["./route/*.js", "./controllers/*.js", "./models/*.js"],
 };
 mongoose
-  .connect("mongodb://localhost:27017/smartStore")
+  .connect("mongodb://localhost:27017/a")
   .then(() => console.log("ket nối database thành công"))
-  .catch(() => console.log("kết nối database thất bại"));
+  .catch((err) => console.log("kết nối database thất bại",err));
 
 app.use(express.json());
 morgan("tiny");
