@@ -1,5 +1,6 @@
 import ProductSchema from "../models/product";
 
+
 // [GET] all product
 const getAll = async (req, res) => {
   try {
@@ -36,6 +37,25 @@ const update = async (req, res) => {
     });
   }
 };
+/**
+ * @swagger
+ * /api/product/add:
+ *  post:
+ *   tags: [Products]
+ *   summary: Tạo sản phẩm mới
+ *   requestBody:
+ *    required: true
+ *    content:
+ *     application/json:
+ *      schema: 
+ *       $ref: '#/components/schemas/products'
+ *   responses:
+ *    200:
+ *     description: Tạo sản phẩm thành công
+ *    400:
+ *     description: Tạo sản phẩm không thành công
+ */
+
 // [POST] add new product
 const add = async (req, res) => {
   const body = req.body;

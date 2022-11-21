@@ -42,4 +42,55 @@ const ProductSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
 export default mongoose.model("products", ProductSchema);
+
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *   products:
+ *    type: object
+ *    properties:
+ *      id:
+ *        type: string
+ *      name:
+ *        type: string
+ *      describe:
+ *        type: string
+ *      price:
+ *        type: number
+ *      discount:
+ *        type: number
+ *      category:
+ *        type: string
+ *      images:
+ *        type: array
+ *      comment:
+ *       type: array
+ *      categories:
+ *        type: string
+ *      unit:
+ *        type: string
+ *      status:
+ *        type: string
+ *    required:
+ *     - name
+ *     - price
+ *     - categories
+ *     - unit
+ *    example:
+ *      id: _fdakfakhfa
+ *      name: Product A
+ *      describe: Mo ta san pham
+ *      price: 200
+ *      categories: iphone
+ *      unit: unit
+ */
+
+/**
+ * @swagger
+ * tags:
+ *  name: Products
+ *  description: API dành cho Product
+ */
