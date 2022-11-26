@@ -29,8 +29,8 @@ const ProductSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    unit: {
-      type: String,
+    quantity: {
+      type: Number,
       required: true,
     },
     status: {

@@ -11,6 +11,7 @@ import cors from "cors";
 dotenv.config();
 // nhúng
 const app = express();
+app.use(cors())
 const options = {
   definition: {
     openapi: "3.0.3",
@@ -34,12 +35,12 @@ mongoose
 
 app.use(express.json());
 morgan("tiny");
-app.use(
-  cors({
-    credentials: true,
-    origin: ["http://localhost:3002"],
-  })
-);
+// app.use(
+//   cors({
+//     credentials: true,
+//     origin: ["http://localhost:3002"],
+//   })
+// );
 
 app.use("/api", productRoute);
 app.use("/api", authRoute);
