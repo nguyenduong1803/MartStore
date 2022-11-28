@@ -12,7 +12,6 @@ dotenv.config();
 // nhúng
 const app = express();
 app.use(cors())
-
 const options = {
   definition: {
     openapi: "3.0.3",
