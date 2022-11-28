@@ -11,9 +11,9 @@ import uploadCloudinary from "../middleware/uploadClound";
 
 const router = express.Router();
 router.post("/product/add", add);
-router.get("/product/:id", getProductById);
 router.put("/product/update/:id", update);
-router.delete("/product/:id", remove);
+router.delete("/product/remove/:id", remove);
+router.get("/product/:id", getProductById);
 router.get("/product", getAll);
 router.post("/product/upload",uploadCloud.single("files"), uploadCloudinary);
 router.get("/product", getAll);

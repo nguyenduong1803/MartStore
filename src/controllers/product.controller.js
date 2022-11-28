@@ -8,6 +8,7 @@ const getAll = async (req, res) => {
     res.status(200).json({
       data: product,
     });
+    console.log(product)
   } catch (error) {
     console.log(error);
   }
@@ -16,6 +17,7 @@ const getAll = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
+    console.log(id)
     const product = await ProductSchema.findOne({ _id: id });
     res.status(200).json({
       data: product,
@@ -74,13 +76,16 @@ const add = async (req, res) => {
   }
 };
 // [DELETE] add new product
-const remove = (req, res) => {
+const remove = async(req, res) => {
+
   try {
-    const id = parseInt(req.params.id);
-    const product = ProductSchema.deleteOne({ _id: id });
-    res.status(200).json({ messsage: "Xóa thành công", product });
+    const id = req.params.id
+    console.log(id)
+    const product =await ProductSchema.deleteOne({_id:id});
+    res.status(200).json({ message: "Success", product});
   } catch (error) {
-    res.status(400).json({ messsage: "Xóa không thành công" });
+    console.log(error)
+    res.status(400).json({ message: "Xóa không thành công",error});
   }
 };
 export { getAll, update, add, getProductById, remove };
