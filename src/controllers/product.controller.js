@@ -8,7 +8,6 @@ const getAll = async (req, res) => {
     res.status(200).json({
       data: product,
     });
-    console.log(product)
   } catch (error) {
     console.log(error);
   }

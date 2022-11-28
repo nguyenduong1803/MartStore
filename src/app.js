@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 import authRoute from "./route/auth.route";
 import authsRoute from "./route/auths.route";
 import categoryRoute from "./route/category.route";
+import orderRoute from "./route/order.route";
 import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config();
@@ -30,7 +31,7 @@ const options = {
   apis: ["./route/*.js", "./controllers/*.js", "./models/*.js"],
 };
 mongoose
-  .connect("mongodb://localhost:27017/smartStore")
+  .connect("mongodb://0.0.0.0:27017/smartStore")
   .then(() => console.log("ket nối database thành công"))
   .catch((err) => console.log("kết nối database thất bại",err));
 
@@ -52,6 +53,7 @@ app.use("/api", productRoute);
 app.use("/api", authRoute);
 app.use("/api", authsRoute);
 app.use("/api", categoryRoute);
+app.use("/api", orderRoute);
 const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 
