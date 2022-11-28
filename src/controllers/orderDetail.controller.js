@@ -1,24 +1,22 @@
-import OrderShema from "../models/order";
-
+import OrderDetailSchema from "../models/orderDetail";
 
 // [GET] all order
 const getAll = async (req, res) => {
   try {
-    const order = await OrderShema.find();
+    const order = await OrderDetailSchema.find();
     res.status(200).json({
       data: order,
     });
-    console.log(order)
   } catch (error) {
     console.log(error);
   }
 };
 // [GET] order by id
-const getOrderById = async (req, res) => {
+const getOrderDetailById = async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id)
-    const order = await OrderShema.findOne({ _id: id });
+    const order = await OrderDetailSchema.findOne({ _id: id });
     res.status(200).json({
       data: order,
     });
@@ -29,40 +27,22 @@ const update = async (req, res) => {
   try {
     const id = req.params.id;
     const body = req.body;
-    const order = await OrderShema.findOneAndUpdate({ _id: id }, body, {
+    const order = await OrderDetailSchema.findOneAndUpdate({ _id: id }, body, {
       new: true,
     });
     res.status(200).json({ message: "update success", order });
   } catch (error) {
     res.status(400).json({
-      messsage: "Không update được hóa đơn",
+      messsage: "Không update được sản phẩm",
     });
   }
 };
-/**
- * @swagger
- * /api/order/add:
- *  post:
- *   tags: [orders]
- *   summary: Tạo sản phẩm mới
- *   requestBody:
- *    required: true
- *    content:
- *     application/json:
- *      schema: 
- *       $ref: '#/components/schemas/orders'
- *   responses:
- *    200:
- *     description: Tạo sản phẩm thành công
- *    400:
- *     description: Tạo sản phẩm không thành công
- */
 
 // [POST] add new order
 const add = async (req, res) => {
   const body = req.body;
   try {
-    const order = await new OrderShema(body).save();
+    const order = await new OrderDetailSchema(body).save();
     res.status(200).json({
       data: order,
       message: "thêm thành công",
@@ -70,21 +50,32 @@ const add = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      messsage: "Không thêm được hóa đơn",
+      messsage: "Không thêm được sản phẩm",
       error,
     });
   }
 };
 // [DELETE] add new order
 const remove = async(req, res) => {
+
   try {
     const id = req.params.id
     console.log(id)
-    const order =await OrderShema.deleteOne({_id:id});
+    const order =await OrderDetailSchema.deleteOne({_id:id});
     res.status(200).json({ message: "Success", order});
   } catch (error) {
     console.log(error)
     res.status(400).json({ message: "Xóa không thành công",error});
   }
 };
-export { getAll, update, add, getOrderById, remove };
+const saveMultiple = async(data) => {
+  if(!Array.isArray(data)) return
+  OrderDetailSchema.collection.insert(data, function (err, docs) {
+    if (err){ 
+        return console.error(err);
+    } else {
+      console.log("Multiple documents inserted to Collection");
+    }
+  });
+}
+export { getAll, update, add, getOrderDetailById, remove,saveMultiple };
