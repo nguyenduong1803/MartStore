@@ -1,6 +1,5 @@
 import express from "express";
 import { uploadCloud,cloudinary } from "../cloudinary.config";
-import { login } from "../controllers/auth.controller";
 import {
   add,
   getAll,
@@ -8,7 +7,6 @@ import {
   remove,
   update,
 } from "../controllers/product.controller";
-import checkAuth from "../middleware/checkAuth";
 import uploadCloudinary from "../middleware/uploadClound";
 
 const router = express.Router();
@@ -18,4 +16,6 @@ router.put("/product/update/:id", update);
 router.delete("/product/:id", remove);
 router.get("/product", getAll);
 router.post("/product/upload",uploadCloud.single("files"), uploadCloudinary);
+router.get("/product", getAll);
+
 export default router;
