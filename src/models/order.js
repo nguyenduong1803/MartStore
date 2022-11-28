@@ -3,43 +3,33 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema(
   {
-    userId: {
+    userId:{
+      type:Schema.Types.ObjectId,
+      ref:"users"
+    },
+    orderDetailId:{
+      type:Schema.Types.ObjectId,
+      ref:"orders"
+    },
+    address: {
       type: String,
       required: true,
     },
-
-    name:{
-      type:String,
+    phoneNumber: {
+      type: String,
       required: true,
     },
-    address:{
-      type:String,
+    note: {
+      type: String,
+    },
+    totalMoney: {
+      type: Number,
       required: true,
     },
-    phoneNumber:{
-      type:String,
-      required: true,
+    status: {
+      type: String,
+      default: 0,
     },
-    email:{
-      type:String,
-    },
-    totalMoney:{
-      type:Number,
-      required: true,
-    },
-    status:{
-      type:Boolean,
-      default: false,
-    },
-    items: [
-      { productId: { 
-        type: String 
-      }, 
-          amount: { 
-          type: Number, 
-          default: 1 
-        } },
-    ],
   },
   {
     timestamps: true,
