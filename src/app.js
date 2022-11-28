@@ -11,6 +11,8 @@ import cors from "cors";
 dotenv.config();
 // nhúng
 const app = express();
+app.use(cors())
+
 const options = {
   definition: {
     openapi: "3.0.3",
@@ -28,7 +30,7 @@ const options = {
   apis: ["./route/*.js", "./controllers/*.js", "./models/*.js"],
 };
 mongoose
-  .connect("mongodb://localhost:27017/a")
+  .connect("mongodb://0.0.0.0:/smartStore")
   .then(() => console.log("ket nối database thành công"))
   .catch((err) => console.log("kết nối database thất bại",err));
 
@@ -40,7 +42,12 @@ app.use(
     origin: ["http://localhost:3002"],
   })
 );
-
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  // res.header("Access-Control-Allow-Origin", "https://freetuts.net");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use("/api", productRoute);
 app.use("/api", authRoute);
 app.use("/api", authsRoute);
