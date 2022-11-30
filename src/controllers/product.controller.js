@@ -1,3 +1,4 @@
+import { fileUploader } from "../cloudinary.config";
 import ProductSchema from "../models/product";
 
 
@@ -59,11 +60,13 @@ const update = async (req, res) => {
 
 // [POST] add new product
 const add = async (req, res) => {
-  const body = req.body;
+  const body = req.file;
   try {
-    const product = await new ProductSchema(body).save();
+    console.log(req.file.path)
+    // const product = await new ProductSchema(body).save();
+    console.log(req)
     res.status(200).json({
-      data: product,
+      data: req.file.path,
       message: "thêm thành công",
     });
   } catch (error) {
