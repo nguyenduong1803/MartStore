@@ -30,6 +30,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "swagger-jsdoc": "^6.2.5",
-    "swagger-ui-express": "^4.6.0"
+    "swagger-ui-express": "^4.6.0",
+    "webp-converter": "^2.3.3"
   }
 }
