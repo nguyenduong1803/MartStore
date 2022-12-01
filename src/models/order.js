@@ -3,9 +3,15 @@ const Schema = mongoose.Schema;
 
 const OrderSchema = new Schema(
   {
-    userId:{
-      type:Schema.Types.ObjectId,
-      ref:"users"
+    userId: {
+      type: Schema.Types.ObjectId,
+      ref: "users",
+    },
+    recipientName: {
+      type: String,
+    },
+    email: {
+      type: String,
     },
     address: {
       type: String,

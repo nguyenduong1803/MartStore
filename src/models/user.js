@@ -47,8 +47,6 @@ UserSchema.methods = {
     return bcrypt.hashSync(password, 10);
   },
   authenticate(password) {
-    console.log("login passs",this.bcryptPassword(password))
-    console.log("old pass",this.password)
     return bcrypt.compareSync(password,this.password)
   },
   // handle validate user

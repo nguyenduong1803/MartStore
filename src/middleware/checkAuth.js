@@ -5,11 +5,12 @@ const checkAuth = async (req, res, next) => {
     const { email, password } = req.body;
     const existUser = await UserSchema.findOne({ email });
     if (!existUser) {
-      return res.status(400).json({ message: "Email not found", user });
+      return res.status(400).json({ message: "Email not found"});
     }
+    
     console.log(existUser.authenticate(password))
     if (!existUser.authenticate(password)) {
-      return res.status(400).json({ message: "wrong password", user });
+      return res.status(400).json({ message: "wrong password" });
     }
     const token = await jwt.sign(
       { email: existUser.email, password: existUser.password },
