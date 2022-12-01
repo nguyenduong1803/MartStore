@@ -2,6 +2,7 @@ import Auth from "../models/user";
 import Joi from "joi";
 const login = async (req, res) => {
   try {
+    res.status(200).json({ message: "Login success", error });
   } catch (error) {
     res.status(200).json({ message: "Login failed", error });
   }

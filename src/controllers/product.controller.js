@@ -1,7 +1,5 @@
-import { fileUploader } from "../cloudinary.config";
 import ProductSchema from "../models/product";
-
-
+import { cloudinary } from "../cloudinary.config";
 // [GET] all product
 const getAll = async (req, res) => {
   try {
@@ -17,7 +15,7 @@ const getAll = async (req, res) => {
 const getProductById = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id)
+    console.log(id);
     const product = await ProductSchema.findOne({ _id: id });
     res.status(200).json({
       data: product,
@@ -28,7 +26,11 @@ const getProductById = async (req, res) => {
 const update = async (req, res) => {
   try {
     const id = req.params.id;
-    const body = req.body;
+    const { file, ...rest } = req.body;
+    const fileImage = await cloudinary.uploader.upload(file, {
+      upload_preset: "devs_setup",
+    });
+    const body = { ...rest, images: [fileImage.secure_url] };
     const product = await ProductSchema.findOneAndUpdate({ _id: id }, body, {
       new: true,
     });
@@ -39,34 +41,18 @@ const update = async (req, res) => {
     });
   }
 };
-/**
- * @swagger
- * /api/product/add:
- *  post:
- *   tags: [Products]
- *   summary: Tạo sản phẩm mới
- *   requestBody:
- *    required: true
- *    content:
- *     application/json:
- *      schema: 
- *       $ref: '#/components/schemas/products'
- *   responses:
- *    200:
- *     description: Tạo sản phẩm thành công
- *    400:
- *     description: Tạo sản phẩm không thành công
- */
 
 // [POST] add new product
 const add = async (req, res) => {
-  const body = req.file;
   try {
-    console.log(req.file.path)
-    // const product = await new ProductSchema(body).save();
-    console.log(req)
+    const { file, ...rest } = req.body;
+    const fileImage = await cloudinary.uploader.upload(file, {
+      upload_preset: "devs_setup",
+    });
+    const body = { ...rest, images: [fileImage.secure_url] };
+    const product = await new ProductSchema(body).save();
     res.status(200).json({
-      data: req.file.path,
+      data: product,
       message: "thêm thành công",
     });
   } catch (error) {
@@ -78,16 +64,15 @@ const add = async (req, res) => {
   }
 };
 // [DELETE] add new product
-const remove = async(req, res) => {
-
+const remove = async (req, res) => {
   try {
-    const id = req.params.id
-    console.log(id)
-    const product =await ProductSchema.deleteOne({_id:id});
-    res.status(200).json({ message: "Success", product});
+    const id = req.params.id;
+    console.log(id);
+    const product = await ProductSchema.deleteOne({ _id: id });
+    res.status(200).json({ message: "Success", product });
   } catch (error) {
-    console.log(error)
-    res.status(400).json({ message: "Xóa không thành công",error});
+    console.log(error);
+    res.status(400).json({ message: "Xóa không thành công", error });
   }
 };
 export { getAll, update, add, getProductById, remove };
