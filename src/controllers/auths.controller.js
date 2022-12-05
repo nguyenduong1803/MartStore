@@ -14,7 +14,7 @@ const validate = (data) => {
     fullname: Joi.string().min(6).max(225).required(),
     email: Joi.string().min(6).max(225).required(),
     password: Joi.string()
-      //   .pattern(new RegExp("^[a-zA-Z0-9]{6,20}$"))
+      .pattern(new RegExp("^[a-zA-Z0-9]{6,20}$"))
       .required(),
     isAdmin: Joi.boolean(),
     phone: Joi.number(),
@@ -25,19 +25,6 @@ const validate = (data) => {
 const register = async (req, res) => {
   try {
     const body = req.body;
-    console.log(body);
-    // const rule = await validate(body);
-    // console.log(rule);
-    // if (rule.error) {
-    //   return res
-    //     .status(422)
-    //     .json({ message: "register failed", error: rule.error.details });
-    // }
-    // const existUser = await Auth.findOne({ email: body.email });
-    // console.log(existUser);
-    // if (existUser) {
-    //   return res.status(400).json({ message: "Email đã tồn tại", error });
-    // }
     const user = await new Auth(body).save();
     return res.status(200).json({ message: "register success", user });
   } catch (error) {
@@ -51,4 +38,4 @@ const authorization = () => {
   }
 };
 
-export { register, login,authorization };
+export { register, login, authorization };

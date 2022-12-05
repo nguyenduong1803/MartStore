@@ -15,7 +15,6 @@ const getAll = async (req, res) => {
 const getOrderDetailById = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id)
     const order = await OrderDetailSchema.findOne({ _id: id });
     res.status(200).json({
       data: order,
@@ -60,7 +59,6 @@ const remove = async(req, res) => {
 
   try {
     const id = req.params.id
-    console.log(id)
     const order =await OrderDetailSchema.deleteOne({_id:id});
     res.status(200).json({ message: "Success", order});
   } catch (error) {
