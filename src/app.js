@@ -4,8 +4,7 @@ import swaggerJSDoc from "swagger-jSDoc";
 import productRoute from "./route/product.route";
 import morgan from "morgan";
 import mongoose from "mongoose";
-import authRoute from "./route/auth.route";
-import authsRoute from "./route/auths.route";
+import authsRoute from "./route/users.route";
 import categoryRoute from "./route/category.route";
 import orderRoute from "./route/order.route";
 import dotenv from "dotenv";
@@ -54,7 +53,6 @@ app.use(function (req, res, next) {
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/api", productRoute);
-app.use("/api", authRoute);
 app.use("/api", authsRoute);
 app.use("/api", categoryRoute);
 app.use("/api", orderRoute);
