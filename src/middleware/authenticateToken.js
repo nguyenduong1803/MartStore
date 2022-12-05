@@ -3,17 +3,18 @@ import checkGoogle from "./checkGoogle";
 const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
-    const type = req.body;
+    const type = req.body.type;
     if (!authHeader) {
       res.status(400).json({ message: "token is required" });
       return;
     }
     const token = authHeader && authHeader.split(" ")[1];
-    if (type !== "registed") {
-      checkGoogle(res, token);
-    }
     if (token === null || !token) {
       return res.status(400);
+    }
+    if (type !== "registed") {
+      checkGoogle(res, token);
+      return;
     }
     jwt.verify(token, process.env.SECRETKEY, (err, user) => {
       if (err) {
@@ -21,10 +22,11 @@ const verifyToken = (req, res, next) => {
       }
       const getUser = user._doc;
       const { password, ...data } = getUser;
-      res.status(200).json({ data });
+      return res.status(200).json({ data });
     });
   } catch (error) {
     console.log("error here", error);
+    return res.status(400).json({ message: "token wrong" });
   }
   next();
 };

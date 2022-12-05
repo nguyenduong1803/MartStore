@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/product/add", add);
 router.put("/product/update/:id", update);
 router.delete("/product/remove/:id", remove);
-router.get("/product/:id", getProductById);
+router.get("/productById", getProductById);
 router.get("/product", getAll);
 router.post("/product/upload", uploadCloudinary);
 router.get("/product", getAll);
