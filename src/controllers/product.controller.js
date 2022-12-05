@@ -1,11 +1,29 @@
 import ProductSchema from "../models/product";
 import { cloudinary } from "../cloudinary.config";
+import category from "../models/category";
 // [GET] all product
 const getAll = async (req, res) => {
   try {
-    const product = await ProductSchema.find();
-    res.status(200).json({
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const category = req.query.category || "";
+    const perPage = limit * page - limit;
+    const product = await ProductSchema.find({
+      name: { $regex: search, $options: "i" },
+      categories: { $regex: category, $options: "i" },
+    })
+      .skip(perPage)
+      .limit(limit);
+    const total = await ProductSchema.countDocuments({
+      name: { $regex: search, $options: "i" },
+    });
+    const totalPage = Math.ceil(total / limit);
+    return res.status(200).json({
       data: product,
+      total,
+      totalPage,
+      currentPage: page,
     });
   } catch (error) {
     console.log(error);
@@ -14,8 +32,11 @@ const getAll = async (req, res) => {
 // [GET] product by id
 const getProductById = async (req, res) => {
   try {
-    const id = req.params.id;
-    const product = await ProductSchema.findOne({ _id: id });
+    const id = req.query.listId;
+    const listId = id.split(",");
+    const product = await ProductSchema.find()
+      .where("_id")
+      .in([...listId]);
     res.status(200).json({
       data: product,
     });
