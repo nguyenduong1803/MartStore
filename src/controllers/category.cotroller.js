@@ -15,7 +15,6 @@ const getAll = async (req, res) => {
 const getcategoryById = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const category = await CategorySchema.findOne({ _id: id });
     res.status(200).json({
       data: category,
@@ -42,7 +41,6 @@ const update = async (req, res) => {
 const add = async (req, res) => {
   try {
     const body = req.body;
-    console.log(body)
     const category = await new CategorySchema(body).save();
     return res.status(200).json({
       data: category,
@@ -60,7 +58,6 @@ const add = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const category = await CategorySchema.deleteOne({ _id: id });
     res.status(200).json({ message: "Success", category });
   } catch (error) {

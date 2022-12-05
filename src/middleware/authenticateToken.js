@@ -13,22 +13,18 @@ const verifyToken = (req, res, next) => {
       checkGoogle(res, token);
     }
     if (token === null || !token) {
-      res.status(400);
-      return;
+      return res.status(400);
     }
-    console.log("error here");
     jwt.verify(token, process.env.SECRETKEY, (err, user) => {
       if (err) {
-        res.status(400).json({ message: "token wrong" });
-        return;
+        return res.status(400).json({ message: "token wrong" });
       }
       const getUser = user._doc;
       const { password, ...data } = getUser;
-      console.log("error here");
       res.status(200).json({ data });
     });
   } catch (error) {
-    console.log("error", error);
+    console.log("error here", error);
   }
   next();
 };

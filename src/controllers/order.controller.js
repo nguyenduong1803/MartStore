@@ -8,7 +8,6 @@ const getAll = async (req, res) => {
     res.status(200).json({
       data: order,
     });
-    console.log(order);
   } catch (error) {
     console.log(error);
   }
@@ -17,7 +16,6 @@ const getAll = async (req, res) => {
 const getOrderById = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const order = await OrderShema.findOne({ _id: id });
     res.status(200).json({
       data: order,
@@ -44,7 +42,6 @@ const update = async (req, res) => {
 const add = async (req, res) => {
   try {
     const { products, ...body } = req.body;
-    console.log(products);
     const order = await new OrderShema(body).save();
     const newProduct = await products.map((item) => {
       return { ...item, orderId: order._id };
@@ -67,7 +64,6 @@ const add = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    console.log(id);
     const order = await OrderShema.deleteOne({ _id: id });
     res.status(200).json({ message: "Success", order });
   } catch (error) {

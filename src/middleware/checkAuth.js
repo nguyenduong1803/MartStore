@@ -11,7 +11,7 @@ const checkAuth = async (req, res, next) => {
     if (!existUser.authenticate(password)) {
       return res.status(400).json({ message: "wrong password" });
     }
-    const token = await jwt.sign({...existUser}, process.env.SECRETKEY);
+    const token = await jwt.sign({ ...existUser }, process.env.SECRETKEY);
     existUser.password = "";
     res.status(200).json({ message: "Login success", token, user: existUser });
   } catch (error) {

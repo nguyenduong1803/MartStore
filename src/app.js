@@ -13,7 +13,7 @@ import cors from "cors";
 dotenv.config();
 // nhúng
 const app = express();
-app.use(cors())
+app.use(cors());
 const options = {
   definition: {
     openapi: "3.0.3",
@@ -33,7 +33,7 @@ const options = {
 mongoose
   .connect("mongodb://0.0.0.0:27017/smartStore")
   .then(() => console.log("ket nối database thành công"))
-  .catch((err) => console.log("kết nối database thất bại",err));
+  .catch((err) => console.log("kết nối database thất bại", err));
 
 morgan("tiny");
 app.use(
@@ -42,15 +42,17 @@ app.use(
     origin: ["http://localhost:3002"],
   })
 );
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   // res.header("Access-Control-Allow-Origin", "https://freetuts.net");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb',extended:true}));
-
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use("/api", productRoute);
 app.use("/api", authRoute);
 app.use("/api", authsRoute);
@@ -58,7 +60,6 @@ app.use("/api", categoryRoute);
 app.use("/api", orderRoute);
 const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
-
 app.listen(process.env.PORT || 3000, () => {
   console.log("server start PORT: ", process.env.PORT);
 });
