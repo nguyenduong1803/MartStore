@@ -1,5 +1,5 @@
 import express from "express";
-import { login, register,authorization } from "../controllers/auths.controller";
+import { login, register,authorization } from "../controllers/users.controller";
 import verifyToken from "../middleware/authenticateToken";
 import checkAuth from "../middleware/checkAuth";
 import checkGoogle from "../middleware/checkGoogle";
