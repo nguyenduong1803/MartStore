@@ -4,7 +4,6 @@ const verifyToken = (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     const type = req.body.type;
-    console.log(type)
     if (!authHeader) {
       res.status(400).json({ message: "token is required" });
       return;

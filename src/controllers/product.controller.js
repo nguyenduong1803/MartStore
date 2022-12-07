@@ -1,6 +1,5 @@
 import ProductSchema from "../models/product";
 import { cloudinary } from "../cloudinary.config";
-import category from "../models/category";
 // [GET] all product
 const getAll = async (req, res) => {
   try {
@@ -41,6 +40,20 @@ const getProductById = async (req, res) => {
       data: product,
     });
   } catch (error) {}
+};
+// [GET] product by id
+const getProductByIds = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const product = await Product.findOne({ _id: id });
+    res.status(200).json({
+      data: product,
+    });
+  } catch (error) {
+    return res.status(400).json({
+      message: ""
+    });
+  }
 };
 // [PUT] update product
 const update = async (req, res) => {
@@ -94,4 +107,4 @@ const remove = async (req, res) => {
     res.status(400).json({ message: "Xóa không thành công", error });
   }
 };
-export { getAll, update, add, getProductById, remove };
+export { getAll, update, add, getProductById, remove, getProductByIds };
