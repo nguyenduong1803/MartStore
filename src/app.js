@@ -6,6 +6,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import authsRoute from "./route/users.route";
 import categoryRoute from "./route/category.route";
+import blogRouter from "./route/blog.route";
 import orderRoute from "./route/order.route";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -56,6 +57,7 @@ app.use("/api", productRoute);
 app.use("/api", authsRoute);
 app.use("/api", categoryRoute);
 app.use("/api", orderRoute);
+app.use("/api", blogRouter);
 const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.listen(process.env.PORT || 3000, () => {
