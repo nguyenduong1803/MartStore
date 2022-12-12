@@ -13,7 +13,7 @@ const router = express.Router();
 router.post("/blog/add", add);
 router.put("/blog/update/:id", update);
 router.delete("/blog/remove/:id", remove);
-router.get("/blogById", getProductById);
+router.get("/blog/:id", getProductById);
 router.get("/blogById/:id", getProductByIds);
 
 router.get("/blog", getAll);
