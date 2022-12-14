@@ -11,7 +11,10 @@ const checkAuth = async (req, res, next) => {
     if (!existUser.authenticate(password)) {
       return res.status(400).json({ message: "wrong password" });
     }
-    const token = await jwt.sign({ ...existUser }, process.env.SECRETKEY);
+    const token = await jwt.sign({ ...existUser }, process.env.SECRETKEY, {
+      // set time refesh token
+      expiresIn: 10,
+    });
     existUser.password = "";
     return res
       .status(200)
