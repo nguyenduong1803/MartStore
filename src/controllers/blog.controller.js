@@ -63,7 +63,7 @@ const update = async (req, res) => {
     res.status(200).json({ message: "update success", product });
   } catch (error) {
     res.status(400).json({
-      messsage: "Không update được sản phẩm",
+      message: "Không update được sản phẩm",
     });
   }
 };
@@ -80,7 +80,7 @@ const add = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      messsage: "Không thêm được blog",
+      message: "Không thêm được blog",
       error,
     });
   }
