@@ -31,11 +31,8 @@ const getAll = async (req, res) => {
 // [GET] product by id
 const getProductById = async (req, res) => {
   try {
-    const id = req.query.listId;
-    const listId = id.split(",");
-    const product = await BlogSchema.find()
-      .where("_id")
-      .in([...listId]);
+    const id = req.params.id;
+    const product = await BlogSchema.findOne({ _id: id });
     res.status(200).json({
       data: product,
     });
@@ -66,7 +63,7 @@ const update = async (req, res) => {
     res.status(200).json({ message: "update success", product });
   } catch (error) {
     res.status(400).json({
-      messsage: "Không update được sản phẩm",
+      message: "Không update được sản phẩm",
     });
   }
 };
@@ -83,7 +80,7 @@ const add = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({
-      messsage: "Không thêm được blog",
+      message: "Không thêm được blog",
       error,
     });
   }
