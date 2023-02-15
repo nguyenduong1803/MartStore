@@ -8,6 +8,8 @@ import authsRoute from "./route/users.route";
 import categoryRoute from "./route/category.route";
 import blogRouter from "./route/blog.route";
 import orderRoute from "./route/order.route";
+import projectRoute from "./route/project.route";
+import taskRoute from "./route/task.route";
 import dotenv from "dotenv";
 import cors from "cors";
 dotenv.config();
@@ -58,6 +60,8 @@ app.use("/api", authsRoute);
 app.use("/api", categoryRoute);
 app.use("/api", orderRoute);
 app.use("/api", blogRouter);
+app.use("/api", projectRoute);
+app.use("/api", taskRoute);
 const specs = swaggerJSDoc(options);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.listen(process.env.PORT || 3000, () => {
