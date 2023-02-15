@@ -37,5 +37,30 @@ const authorization = () => {
     res.status(200).json({ message: "wrong Token", error });
   }
 };
-
-export { register, login, authorization };
+// [GET] all project
+const getAll = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const perPage = limit * page - limit;
+    const project = await Auth.find({
+      name: { $regex: search, $options: "i" },
+    })
+      .skip(perPage)
+      .limit(limit);
+    const total = await Auth.countDocuments({
+      name: { $regex: search, $options: "i" },
+    });
+    const totalPage = Math.ceil(total / limit);
+    return res.status(200).json({
+      data: project,
+      total,
+      totalPage,
+      currentPage: page,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export { register, login, authorization, getAll };
