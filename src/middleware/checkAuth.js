@@ -13,7 +13,7 @@ const checkAuth = async (req, res, next) => {
     }
     const token = await jwt.sign({ ...existUser }, process.env.SECRETKEY, {
       // set time refesh token
-      expiresIn: 10,
+      // expiresIn: 10,
     });
     existUser.password = "";
     return res
