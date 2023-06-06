@@ -17,7 +17,7 @@ const dbUrl = process.env.ATLAS_URL
 const clientUrl = process.env.CLIENT_URL
 const app = express();
 app.use(cors());
-
+mongoose.set("strictQuery", false);
 mongoose
   .connect(dbUrl)
   .then(() => console.log("ket nối database thành công"))
