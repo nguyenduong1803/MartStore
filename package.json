@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --exec node_modules/.bin/babel-node src/app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-babel": "babel ./src -d ./build/src",
+    "build": "npm run build-babel",
+    "production": "npm run build && node ./build/src/app.js"
   },
   "keywords": [],
   "author": "",
