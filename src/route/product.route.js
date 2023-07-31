@@ -14,7 +14,7 @@ const router = express.Router();
 router.post("/product/add", add);
 router.put("/product/update/:id", update);
 router.delete("/product/remove/:id", remove);
-router.get("/productById/:id", getProductByIds);
+router.get("/findById/:id", getProductByIds);
 router.post("/product/upload", uploadCloudinary);
 router.get("/product", getAll);
 
