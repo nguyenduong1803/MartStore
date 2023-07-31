@@ -16,8 +16,6 @@ router.put("/product/update/:id", update);
 router.delete("/product/remove/:id", remove);
 router.get("/productById", getProductById);
 router.get("/productById/:id", getProductByIds);
-
-router.get("/product", getAll);
 router.post("/product/upload", uploadCloudinary);
 router.get("/product", getAll);
 
