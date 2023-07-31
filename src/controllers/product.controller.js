@@ -46,7 +46,7 @@ const getProductById = async (req, res) => {
 const getProductByIds = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await ProductSchema.findOne({ _id: id });
+    const product = await ProductSchema.findById(id);
     res.status(200).json({
       data: product,
     });
