@@ -33,6 +33,16 @@ const getTaskById = async (req, res) => {
   } catch (error) {}
 };
 // [GET] task by id
+const getTaskByIdTask = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const task = await TaskShema.findOne({ _id: id });
+    res.status(200).json({
+      data: task,
+    });
+  } catch (error) {}
+};
+// [GET] task by id
 const getTaskByIds = async (req, res) => {
   try {
     const id = req.query.listId;
@@ -89,4 +99,4 @@ const remove = async (req, res) => {
     res.status(400).json({ message: "Xóa không thành công", error });
   }
 };
-export { getAll, update, add, getTaskByIds, remove, getTaskById };
+export { getAll, update, add, getTaskByIds, remove, getTaskById ,getTaskByIdTask};

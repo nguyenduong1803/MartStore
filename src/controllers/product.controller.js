@@ -1,5 +1,6 @@
 import ProductSchema from "../models/product";
 import { cloudinary } from "../cloudinary.config";
+ 
 // [GET] all product
 const getAll = async (req, res) => {
   try {
@@ -45,13 +46,13 @@ const getProductById = async (req, res) => {
 const getProductByIds = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await Product.findOne({ _id: id });
+    const product = await ProductSchema.findOne({ _id: id });
     res.status(200).json({
       data: product,
     });
   } catch (error) {
     return res.status(400).json({
-      message: ""
+      message: "",
     });
   }
 };
@@ -64,7 +65,7 @@ const update = async (req, res) => {
       upload_preset: "devs_setup",
     });
     const body = { ...rest, images: [fileImage.secure_url] };
-    const product = await ProductSchema.findOneAndUpdate({ _id: id }, body, {
+    const product = await ProductSchema.findByIdAndUpdate({ _id: id }, body, {
       new: true,
     });
     res.status(200).json({ message: "update success", product });
@@ -85,7 +86,7 @@ const add = async (req, res) => {
     const body = { ...rest, images: [fileImage.secure_url] };
     const product = await new ProductSchema(body).save();
     res.status(200).json({
-      data: product,
+      product,
       message: "thêm thành công",
     });
   } catch (error) {
@@ -100,7 +101,8 @@ const add = async (req, res) => {
 const remove = async (req, res) => {
   try {
     const id = req.params.id;
-    const product = await ProductSchema.deleteOne({ _id: id });
+    const product = await ProductSchema.findByIdAndDelete({ _id: id });
+    console.log(product);
     res.status(200).json({ message: "Success", product });
   } catch (error) {
     console.log(error);

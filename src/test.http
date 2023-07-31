@@ -1,3 +1,0 @@
-GET http://localhost:5000/api
-
-POST http://localhost:8080/api
