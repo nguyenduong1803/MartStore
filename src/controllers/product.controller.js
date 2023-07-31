@@ -52,7 +52,7 @@ const getProductByIds = async (req, res) => {
     });
   } catch (error) {
     return res.status(400).json({
-      message: "",
+      message: error,
     });
   }
 };
